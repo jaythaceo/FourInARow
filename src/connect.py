@@ -140,6 +140,38 @@ def getNewBoard():
 
 # getHumanBoard
 def getHumanBoard(board):
+    draggingToken = False
+    tokenx, tokeny = None, none
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                terminate()
+            if not draggingToken and event.type == MOUSEBUTTONDOWN and redPileRect.collidepoint(event.pos):
+                draggingToken = True
+            if draggingToken and event.type == MOUSEMOTION:
+                tokenx, tokeny = event.pos
+            if draggingToken and event.type == MOUSEBUTTONUP:
+
+                if tokeny < YMARGIN and tokenx > XMARGIN and tokenx < WINDOW_WIDTH - XMARGIN:
+                    column = int((tokenx - XMARGIN)  /  SPACESIZE)
+                    if isValidMove(board, column):
+                        animateDroppingToken(board, column, 'red')
+                        board[column][getLowestFreeSpace(board, column)] = 'red'
+                        drawBoard(board)
+                        pygame.display.update()
+                        return
+                tokenx, tokeny = None, None
+                draggingToken = False
+        if tokenx != None and tokeny != None:
+            drawBoard(board, {'x':tokenx - int(SPACESIZE / 2), 'y':tokeny - inr(SPACESIZE / 2), 'color':'red'})
+        else:
+            drawBoard(board)
+
+        pygame.display.update()
+        gameClock.tick()
+
+
+
 
 
 
