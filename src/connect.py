@@ -45,7 +45,7 @@ def main():
     blackTokenImg = pygame.image.load('4row_black.png')
     blackTokenImg = pygame.transform.smoothscale(redTokenImg, (SPAECSIZE, SPAECSIZE))
     boardImg = pygame.image.load('4row_board.png')
-    boardImg = pygame.transform.smoothscale(boardImg, (SPAECSIZE, SPACESIZE))
+    boardImg = pygame.transform.smoothscale(boardImg, (SPACESIZE, SPACESIZE))
 
     bigFont = pygame.font.Font('freeanabold.ttf', 72)
     normalFont = pygame.font.Font('freeanabold.ttf', 24)
@@ -66,6 +66,83 @@ def main():
             else:
                 turn = 'human'
         mainBoard = getNewBoard()
+
+        while True:
+            if turn == 'human':
+                getHumanMove(mainBoard)
+                if isWinner(mainBoard, 'red'):
+                    winner - 'Human wins'
+                    break
+                turn = 'human'
+
+            if isBoardFull(mainBoard):
+                winner = 'Tie'
+                break
+
+            gameOverSurf = bigFont.render(winner, 1, TEXTCOLOR)
+            gameOverRect = gameOverSurf.get_rect()
+            gameOverRect.center = (int(WINDOW_WIDTH / 2 ), int(WINDOWHEIGHT / 2))
+
+            newGame = False
+            while True:
+                if newGame:
+                    break
+                drawBoard(mainBoard)
+                windowSurf.blit(gameOverSurf, gameOverRect)
+                windowSurf.blit(gameOversurf2, gameOverRect2)
+                pygame.display.update()
+                gameClock.tick()
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        terminate()
+                    if event.type == MOUSEBUTTONUP:
+                        newGame = True
+                        break
+
+def makeMove(board, player, column):
+    lowest = getLowestFreeSpace(board, column)
+    if lowest != -1:
+        board[column][lowest] = player
+
+def drawBoard(board, extraToken=None):
+    windowSurf.fill(BGCOLOR)
+
+    # Draw Tokens
+    spaceRect = pygame.Rect(0,0, SPACESIZE, SPACESIZE)
+    for x in range(BOARDWIDTH):
+        for y in range(BOARDHEIGHT):
+            spaceRect.topleft = (XMARGIN + (x * SPACESIZE), YMARGIN +(y * SPACESIZE))
+            if board[x][y] == 'red':
+                windowSurf.blit(redTokenImg, spaceRect)
+            elif board[x][y] == 'black':
+                windowSurf.blit(blackTokenImg, spaceRect)
+
+    if extraToken != None:
+        if extraToken['color'] == 'red':
+            windowSurf.blit(redTokenImg, (extraToken['x'],extraToken['y'], SPACESIZE,SPACESIZE))
+        elif extraToken['color'] == 'black':
+            windowSurf.blit(blackTokenImg, (extraToken['x'],extraToken['y'], SPACESIZE,SPACESIZE))
+
+    # Draw board over tokens
+    for x in range(BOARDWIDTH):
+        for y in range(BOARDWIDTH)  :
+            spaceRect.topleft = (XMARGIN + ( x * SPACESIZE), YMARGIN + ( y * SPACESIZE))
+            windowSurf.blit(boardImg, spaceRect)
+
+    windowSurf.blit(redTokenImg, redPileRect)
+    windowSurf.blit(blackTokenImg, blackPileRect)
+
+def getNewBoard():
+    board = []
+    for x in range(BOARDWIDTH):
+        board.append([None] * BOARDHEIGHT)
+        return board
+
+# getHumanBoard
+def getHumanBoard(board):
+
+
+
 
 
 
