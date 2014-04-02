@@ -170,6 +170,77 @@ def getHumanBoard(board):
         pygame.display.update()
         gameClock.tick()
 
+def animatetComputerMoveing(board, column):
+    x = blackPileRect.left
+    y = blackPileRect.top
+
+    speed = 1.0
+
+    while y > (YMARGIN - SPACESIZE):
+        y -= int(speed)
+        speeed += 0.5
+        drawBoard(board, {'x':x, 'y':y, 'color' : 'black'})
+        pygame.display.update()
+        gameClock.tick()
+
+    y =  YMARGIN - SPACESIZE
+    speed = 1.0
+    while x > (XMARGIN + column * SPACESIZE):
+        x -= int(speed)
+        speed += 0.5
+        drawBoard(board, {'x':x, 'y':y, 'color': 'black'})
+        pygame.display.update()
+        gameClock.tick()
+    animateDroppingToken(board, column, 'black')
+
+def getComputerMove(board):
+    potentialMoves = getPotentialMoves(board, 'black', DIFFICULTY)
+    bestMoveScore = max([potentialMoves[i] for i in range(BOARDWIDTH) if isValidMove(board, i)])
+    bestMoves = []
+    for i in range(len(potentialMoves)):
+        if potentialMoves[i] == bestMoveScore:
+            bestMoves.append(i)
+    return random.choice(bestMoves)
+
+def getPotentialMoves(board, playerTile, lookAhead):
+    if lookAhead == 0:
+        return [0] * BOARDWIDTH
+
+    potentialMoves = []
+
+    if playerTile == 'red':
+        enemyTile = 'black'
+    else:
+        enemyTile = 'red'
+
+    if isBoardFull(board):
+        return [0] * BOARDWIDTH
+
+    potentialMoves = [0] * BOARDWIDTH
+    for playerMove in range(BOARDWIDTH):
+        dupeBoard = copy.deepcopy(board)
+        if not isValidMove(dupeBoard, playerMove):
+            continue
+        makeMove(dupeBoard, playerTile, playerMove)
+        if isWinner(dupeBoard, playerTile):
+            potentialMoves[playerMove] = 1
+            break
+        else:
+            if isBoardFull(dupeBoard):
+                potentialMoves[playerMove] = 0
+            else:
+                for enemyMove in range(BOARDWIDTH):
+                    dupeBoard2 = copy.deepcopy(dupeBoard)
+                    if not isValidMove(dupeBoard, enemyMove):
+                        continue
+                    makeMove(dupeBoard2, enemyTile, enemyMove)
+                    if isWinner(dupeBoard2, enemyTile):
+                        potentialMoves[playerMove] = -1
+                        break
+                    else:
+                        results = getPotentialMoves(dupeBoard, playerTile, lookAhead -1)
+                        potentialMoves[playerMove] += (sum(results) / BOARDWIDTH) / BOARDWIDTH
+    return potentialMoves
 
 
 
@@ -182,8 +253,7 @@ def getHumanBoard(board):
 
 
 
-
-if __name__ == ' __main__ ':
+__name__ == ' __main__ ':
     main()
 
 
