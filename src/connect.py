@@ -177,7 +177,15 @@ def animatetComputerMoveing(board, column):
 
     while y > (YMARGIN - SPACESIZE):
         y -= int(speed)
+<<<<<<< HEAD
         speed += 0.5
+=======
+<<<<<<< HEAD
+        speed += 0.5
+=======
+        speeed += 0.5
+>>>>>>> master
+>>>>>>> buggy
         drawBoard(board, {'x':x, 'y':y, 'color' : 'black'})
         pygame.display.update()
         gameClock.tick()
@@ -255,11 +263,23 @@ def isValidMove(board, move):
         return False
     return True
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> buggy
 def isWinner(board, tile):
     for y in range(BOARDHEIGHT):
         for x in range(BOARDWIDTH -3):
             if board[x][y] == tile and board[x+1][y] == tile and board[x+2][y] == tile and board[x+3][y] == tile:
                 return True
+<<<<<<< HEAD
+
+    #check verticle spaces
+    for x in range(BOARDWIDTH):
+        for y in range(BOARDHEIGHT - 3):
+            if board[x][y] == tile and board[x][y+1] == tile and board[x][y+2] == tile and board[x][y+3] == tile:
+                return True
+=======
 
     #check verticle spaces
     for x in range(BOARDWIDTH):
@@ -267,6 +287,28 @@ def isWinner(board, tile):
             if board[x][y] == tile and board[x][y+1] == tile and board[x][y+2] == tile and board[x][y+3] == tile:
                 return True
 
+    for x in range(BOARDWIDTH-3):
+        for x in range(3,BOARDHEIGHT-3):
+            if board[x][y] == tile and board[x+1][y-1] == tile and board[x+2][y-2] == tile and board[x+3][y-3] == tile:
+                return True
+=======
+# def isWinner(board, tile)
+
+
+
+
+
+>>>>>>> master
+
+    for x in range(BOARDWIDTH -3):
+        for y in range(BOARDHEIGHT -3):
+            if board[x][y] == tile and board[x+1][y+1] == tile and board[x+2][y+2] == tile and board[x+3][y+3] == tile:
+                return True
+
+    return False
+>>>>>>> buggy
+
+<<<<<<< HEAD
     for x in range(BOARDWIDTH-3):
         for x in range(3,BOARDHEIGHT-3):
             if board[x][y] == tile and board[x+1][y-1] == tile and board[x+2][y-2] == tile and board[x+3][y-3] == tile:
@@ -279,6 +321,8 @@ def isWinner(board, tile):
 
     return False
 
+=======
+>>>>>>> master
 def terminate():
     pygame.quit()
     sys.exit()
