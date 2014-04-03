@@ -308,6 +308,21 @@ def isWinner(board, tile):
     return False
 >>>>>>> buggy
 
+<<<<<<< HEAD
+    for x in range(BOARDWIDTH-3):
+        for x in range(3,BOARDHEIGHT-3):
+            if board[x][y] == tile and board[x+1][y-1] == tile and board[x+2][y-2] == tile and board[x+3][y-3] == tile:
+                return True
+
+    for x in range(BOARDWIDTH -3):
+        for y in range(BOARDHEIGHT -3):
+            if board[x][y] == tile and board[x+1][y+1] == tile and board[x+2][y+2] == tile and board[x+3][y+3] == tile:
+                return True
+
+    return False
+
+=======
+>>>>>>> master
 def terminate():
     pygame.quit()
     sys.exit()
