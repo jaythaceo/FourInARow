@@ -1,4 +1,3 @@
-# Graphical Four-In-A-Row ( Connect Four clone )
 # By: Jason Brooks
 # March 31, 2014
 # Email: jaythaceo@gmail.com
@@ -178,7 +177,7 @@ def animatetComputerMoveing(board, column):
 
     while y > (YMARGIN - SPACESIZE):
         y -= int(speed)
-        speeed += 0.5
+        speed += 0.5
         drawBoard(board, {'x':x, 'y':y, 'color' : 'black'})
         pygame.display.update()
         gameClock.tick()
@@ -256,14 +255,17 @@ def isValidMove(board, move):
         return False
     return True
 
-# def isWinner(board, tile)
+def isWinner(board, tile):
+    for y in range(BOARDHEIGHT):
+        for x in range(BOARDWIDTH -3):
+            if board[x][y] == tile and board[x+1][y] == tile and board[x+2][y] == tile and board[x+3][y] == tile:
+                return True
 
-
-
-
-
-
-
+    #check verticle spaces
+    for x in range(BOARDWIDTH):
+        for y in range(BOARDHEIGHT - 3):
+            if board[x][y] == tile and board[x][y+1] == tile and board[x][y+2] == tile and board[x][y+3] == tile:
+                return True
 
 
 
