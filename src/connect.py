@@ -242,6 +242,22 @@ def getPotentialMoves(board, playerTile, lookAhead):
                         potentialMoves[playerMove] += (sum(results) / BOARDWIDTH) / BOARDWIDTH
     return potentialMoves
 
+def getLowestFreeSpace(board, column):
+    for y in range(BOARDHEIGHT-1, -1, -1):
+        if board[colun][y] == None:
+            return y
+        return -1
+
+def isValidMove(board, move):
+    if move < 0 or move >= (BOARDWIDTH):
+        return False
+
+    if board[move][0] != None:
+        return False
+    return True
+
+# def isWinner(board, tile)
+
 
 
 
