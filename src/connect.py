@@ -177,7 +177,11 @@ def animatetComputerMoveing(board, column):
 
     while y > (YMARGIN - SPACESIZE):
         y -= int(speed)
+<<<<<<< HEAD
         speed += 0.5
+=======
+        speeed += 0.5
+>>>>>>> master
         drawBoard(board, {'x':x, 'y':y, 'color' : 'black'})
         pygame.display.update()
         gameClock.tick()
@@ -255,6 +259,7 @@ def isValidMove(board, move):
         return False
     return True
 
+<<<<<<< HEAD
 def isWinner(board, tile):
     for y in range(BOARDHEIGHT):
         for x in range(BOARDWIDTH -3):
@@ -271,6 +276,14 @@ def isWinner(board, tile):
         for x in range(3,BOARDHEIGHT-3):
             if board[x][y] == tile and board[x+1][y-1] == tile and board[x+2][y-2] == tile and board[x+3][y-3] == tile:
                 return True
+=======
+# def isWinner(board, tile)
+
+
+
+
+
+>>>>>>> master
 
     for x in range(BOARDWIDTH -3):
         for y in range(BOARDHEIGHT -3):
