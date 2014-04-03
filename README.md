@@ -6,8 +6,8 @@ Python version: 2.7<br />
 Four In A Row version 1.0<br />
 
 
-<h3>Installation<h3 />
-=============<br />
+<h3>Installation
+=============
 
 
 =
